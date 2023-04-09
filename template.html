@@ -1,0 +1,9 @@
+${i.include('header.html')}
+<div>
+    ${d.eat.reduce((str,food)=>str+'<div>'+food+'</div>', '')}
+</div>
+
+<div>
+    ${d.sport ? 'you are in a good way' : 'change it now'}
+</div>
+${i.include('footer.html')}
