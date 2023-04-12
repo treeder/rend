@@ -1,0 +1,12 @@
+${i.include('header.html')}
+
+<h2>My Favorite Fruits</h2>
+<div>
+    ${d.fruits.map((f)=>`<div>${f}</div>`)}
+</div>
+
+<div>
+    ${d.sport ? 'yep' : 'no'}
+</div>
+
+${i.include('footer.html')}
