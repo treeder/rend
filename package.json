@@ -1,5 +1,5 @@
 {
-  "name": "litter",
+  "name": "rend",
   "type": "module",
   "version": "0.0.4",
   "description": "A node renderer using template literals.",
