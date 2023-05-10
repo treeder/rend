@@ -1,11 +1,12 @@
-import { litter } from '../litter.js'
+import { Rend } from '../rend.js'
+import { header, footer } from './layout.js'
+import { index } from './index.js'
+
+let rend = new Rend({ header, footer })
 
 export default async function plugin(fastify, options) {
     fastify.get('/', async (request, reply) => {
-        reply.type('text/html; charset=utf-8')
-        return litter('./index.html', {
-            fruits: ['apple', 'orange', 'carrot'],
-            sports: true,
-        })
+        console.log('rend:', rend)
+        return rend.send(reply, index, { name: "John Wick" })
     })
 }

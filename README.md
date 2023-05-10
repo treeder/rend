@@ -1,43 +1,59 @@
-# litter
+# rend
 
 A Node.js renderer using template literals.
 
 ## Install
 
 ```sh
-npm install treeder/litter
+npm install treeder/rend
 ```
 
 ## Usage
 
-This is a fastify example, but you can do the same with Express or whatever you like to use.
+First make a `layout.js` file with two functions, `header()` and `footer()`:
 
-Make an `index.html` file:
+```js
+export function header(d) {
+  return `<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>My Rad Site</title>
+</head>
+<body>
+    `
+}
 
-```html
-<h2>${d.name}</h2>
+export function footer(d) {
+  return `
+    </body>
+    </html>
+    `
+}
 ```
 
-Then make your server:
+Then make an `index.js` file with your body content:
+
+```html
+<h2>Hello ${d.name}!</h2>
+```
+
+Now we send that back in a request.
+
+This is a fastify example, but you can do the same with Express or whatever you like to use. Put the following in `app.js`.
 
 ```js
 import Fastify from 'fastify'
-import {litter} from 'litter'
+import {rend} from 'rend'
 
 const fastify = Fastify({
   logger: true
 })
 
 fastify.get('/', async (request, reply) => {
-    reply.type('text/html; charset=utf-8')
-    return litter('./index.html', {
-        name: 'John Wick'
-    })
+    return rend(reply, index, {name: 'John Wick'})
 })
 
-/**
- * Run the server!
- */
+// Run the server
 const start = async () => {
   try {
     await fastify.listen({ port: 3000 })
@@ -49,17 +65,9 @@ const start = async () => {
 start()
 ```
 
-That's it!
+Start it up with `node app.js` and surf to https://localhost:3000. That's it!
 
 ### Includes
-
-To include other files, you can use the special include function in your HTML file:
-
-```html
-${i.include('header.html')}
-```
-
-For a working example, see [example/](example/).
 
 ## Development
 
