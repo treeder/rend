@@ -20,4 +20,5 @@ jobs:
         git config --global user.email "github+actions@gmail.com"
         git config --global user.name "Actions"
         npm version patch
+        git commit -am "Bump version"
         git push --follow-tags

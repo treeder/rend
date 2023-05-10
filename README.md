@@ -1,6 +1,7 @@
 # rend
 
-A Node.js renderer using template literals.
+A Node.js renderer using template literals. The beauty of this is that it's so simple and you can just use standard JavaScript interpolation
+and do any kind of JavaScript tricks you want.
 
 ## Install
 
@@ -43,15 +44,21 @@ This is a fastify example, but you can do the same with Express or whatever you 
 
 ```js
 import Fastify from 'fastify'
-import {rend} from 'rend'
+import { Rend } from 'rend'
+import { header, footer } from './layout.js'
+import { index } from './index.js'
 
 const fastify = Fastify({
   logger: true
 })
 
+
+let rend = new Rend({ header, footer })
+
 fastify.get('/', async (request, reply) => {
-    return rend(reply, index, {name: 'John Wick'})
+    return rend.send(reply, index, {name: 'John Wick'})
 })
+
 
 // Run the server
 const start = async () => {
@@ -67,7 +74,6 @@ start()
 
 Start it up with `node app.js` and surf to https://localhost:3000. That's it!
 
-### Includes
 
 ## Development
 
