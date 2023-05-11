@@ -1,4 +1,5 @@
 import path from 'path'
+
 export class Rend {
     constructor(options={}) {
         this.options = options
@@ -8,11 +9,17 @@ export class Rend {
     }
 
     // render returns a string of the rendered content
-    async render(bodyFunc, d) {
+    async render(bodyFunc, d, opts={}) {
+        console.log('rendering', bodyFunc, d, opts)
+        if (d == null) d = {}
         let o = this.options
+        let msgFunc = (s, opts2={}) => {
+            if(!o.localizer)return s
+            return o.localizer.msg(s, {...{locale: opts.locale }, ...opts2})
+        }
         let b
         if (typeof v === 'function') {
-            b = bodyFunc(d)
+            b = bodyFunc(d, msgFunc)
         } else {
             let template =this.templates[bodyFunc] 
             if (!template) {
@@ -24,12 +31,12 @@ export class Rend {
                 console.log("got cached template!")
             }
             console.log('template', template)
-            b = template.render(d)
+            b = template.render(d, msgFunc)
         }
         let s = `
-            ${o.header(d)}
+            ${o.header(d, msgFunc)}
             ${b}
-            ${o.footer(d)} 
+            ${o.footer(d, msgFunc)} 
             `
         return s
     }
@@ -38,22 +45,16 @@ export class Rend {
     // reply is a fastify reply object
     // bodyFund can be a function or a string path to a module that exports a render function
     async send(reply, bodyFunc, d={}, opts={}) {
+        console.log("send")
+        if (opts.status) {
+            reply.status(opts.status)
+        }
         reply.header('Content-Type', 'text/html')
         if(opts.headers){
             for (const h in opts.headers){
                 reply.header(h, opts.headers[h])
             }
         }
-        return reply.send(await this.render(bodyFunc, d))
+        return reply.send(await this.render(bodyFunc, d, opts))
     }
-
-}
-
-// stringify is for passing objects as html atttributes. 
-// JSON.stringify doesn't work if your object has double and single quotes as it will end the string early.
-export function stringify(ob){
-    return JSON.stringify(ob).replaceAll(
-        '"',
-        '&quot;'
-      )
 }
