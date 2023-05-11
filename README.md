@@ -74,6 +74,15 @@ start()
 
 Start it up with `node app.js` and surf to https://localhost:3000. That's it!
 
+## Other functions
+
+### stringify
+
+A little enhancement to JSON.stringify so that it works with HTML attributes. Use this if you want to pass objects into a web or Lit component.
+
+```js
+<my-component something="${stringify(obj)}"></my-component>
+```
 
 ## Development
 
