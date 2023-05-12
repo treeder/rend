@@ -9,6 +9,9 @@ export class Rend {
 
     // render returns a string of the rendered content
     async render(bodyFunc, d) {
+        if (this.options.data) {
+            d = { ...this.options.data, ...d }
+        }
         let o = this.options
         let b
         if (typeof v === 'function') {
