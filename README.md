@@ -45,8 +45,7 @@ This is a fastify example, but you can do the same with Express or whatever you 
 ```js
 import Fastify from 'fastify'
 import { Rend } from 'rend'
-import { header, footer } from './layout.js'
-import { index } from './index.js'
+import { header, footer } from './views/layout.js'
 
 const fastify = Fastify({
   logger: true
@@ -56,7 +55,7 @@ const fastify = Fastify({
 let rend = new Rend({ header, footer })
 
 fastify.get('/', async (request, reply) => {
-    return rend.send(reply, index, {name: 'John Wick'})
+    return rend.send(reply, './views/index.js', {name: 'John Wick'})
 })
 
 
