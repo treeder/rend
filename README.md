@@ -34,8 +34,12 @@ export function footer(d) {
 
 Then make an `index.js` file with your body content:
 
-```html
-<h2>Hello ${d.name}!</h2>
+```js
+export function render(d) {
+  return `
+    <h2>Hello ${d.name}!</h2>
+  `
+}
 ```
 
 Now we send that back in a request.
