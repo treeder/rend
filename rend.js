@@ -24,9 +24,8 @@ export class Rend {
                     this.templates[bodyFunc] = template
                 }
             } else {
-                console.log("got cached template!")
+                // console.log("got cached template!")
             }
-            console.log('template', template)
             b = template.render(d)
         }
         let s = `
