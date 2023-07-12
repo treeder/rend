@@ -21,7 +21,7 @@ export function render(d) {
         <script type="module">
             import '/components/hello-world.js'
         </script>
-        <hello-world name=${d.name}></hello-world>
+        <hello-world name="${d.name}"></hello-world>
     </div>
     
     </div>
