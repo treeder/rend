@@ -8,4 +8,5 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["cd", "example", "&&", "node", "server.js"]
+WORKDIR /app/example
+CMD ["node", "server.js"]

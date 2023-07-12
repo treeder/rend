@@ -92,8 +92,6 @@ The example above is all server side code. If you run it and view it, you'll see
 
 ## Web Components
 
-
-
 TODO:
 
 * Lit
@@ -123,6 +121,47 @@ import { stringify } from 'rend'
 <my-component something="${stringify(obj)}"></my-component>
 ```
 
+## Good Practice Guidelines
+
+Here's some things we find useful that make building your apps more consistent. 
+
+### Errors
+
+Use the standard `cause` to wrap errors: 
+
+```js
+try {
+  something()
+} catch (err) {
+  throw new Error("New error message", { cause: err })
+}
+```
+
+Then you can check the cause with `err.cause`.
+
+### API / HTTP Errors
+
+TODO: add this to a lib or rend.
+
+Use the following:
+
+```js
+export class HTTPError extends Error {
+    constructor(message, options) {
+      super(message, options)
+      this.status = options.status
+    }
+
+    get code() {
+        return this.status
+    }
+
+    toString() {
+        return `${this.status} ${this.message}`;
+    }
+}
+```
+
 ## Development
 
 ### Codespaces (recommended)
@@ -133,13 +172,13 @@ To get everything setup out of the box, simply open this repo in a codespace and
 
 Clone this repo.
 
-Install fastify cli:
+Setup:
 
 ```sh
-npm i -g fastify-cli
+make install
 ```
 
-then:
+Run:
 
 ```sh
 make run

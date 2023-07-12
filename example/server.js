@@ -13,6 +13,7 @@ fastify.register(appService)
 // Run the server!
 let port = process.env.PORT || 3000;
 
+console.log(`Server starting on port ${port}`)
 fastify.listen({ port: port, host: '0.0.0.0' }, (err, address) => {
     if (err) throw err
     // Server is now listening on ${address}
