@@ -11,5 +11,9 @@
   "license": "ISC",
   "devDependencies": {
     "fastify": "^4.15.0"
+  },
+  "dependencies": {
+    "@fastify/static": "^6.10.2",
+    "loco": "github:treeder/loco"
   }
 }

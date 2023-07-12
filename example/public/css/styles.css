@@ -1,0 +1,15 @@
+:root {
+    font-family: 'Roboto Flex', sans-serif;
+
+}
+
+.container {
+    max-width: 1200px;
+    padding: 0 15px;
+}
+
+.footer {
+    border-top: 1px solid #eaeaea;
+    margin-top: 30px;
+    padding-top: 20px;
+}

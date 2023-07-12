@@ -3,6 +3,17 @@
 A Node.js renderer using template literals. The beauty of this is that it's so simple and you can just use standard JavaScript interpolation
 and do any kind of JavaScript tricks you want.
 
+* No builds
+* No lock-in
+* Super simple
+* Server side rendering
+* Client side rendering with standard web components (built into the browser)
+
+The philosophy behind this is based on islands architecture or components architecture where you server side render all the static
+things for super fast first contentful paint then you hydrate the dynamic areas with JavaScript to make them usable. 
+
+We use rend for server side and Lit web components for client side.
+
 ## Install
 
 ```sh
@@ -51,19 +62,17 @@ import Fastify from 'fastify'
 import { Rend } from 'rend'
 import { header, footer } from './views/layout.js'
 
-const fastify = Fastify({
-  logger: true
-})
+const fastify = Fastify()
 
-
+// Initialize Rend with header and footer render functions:
 let rend = new Rend({ header, footer })
 
 fastify.get('/', async (request, reply) => {
-    return rend.send(reply, './views/index.js', {name: 'John Wick'})
+  // The following will write the response using the template at index.js and the data object with a name key:
+  return rend.send(reply, './views/index.js', {name: 'John Wick'})
 })
 
-
-// Run the server
+// Start the server
 const start = async () => {
   try {
     await fastify.listen({ port: 3000 })
@@ -77,9 +86,35 @@ start()
 
 Start it up with `node app.js` and surf to https://localhost:3000. That's it!
 
-## Other functions
+## Server Side Rendering - SSR
 
-### stringify
+The example above is all server side code. If you run it and view it, you'll see it renders insanely fast. 
+
+## Web Components
+
+
+
+TODO:
+
+* Lit
+* Use a component library
+* Add a custom component
+* Import maps are your best friend for performance and zero builds
+
+
+## Localization
+
+I recommend using the [Loco](https://github.com/treeder/loco) library as it's very simple and has some really
+nice convenience features. The [example](/example) app uses it to show how easy it is.
+
+The very nice thing is that it is Lit compatible you can use @lit/localize and loco with the same language
+files. 
+
+TODO: use the same lang file in a web component and on the server.
+
+## Other helpful functions
+
+### stringify - a special version for web components
 
 A little enhancement to JSON.stringify so that it works with HTML attributes. Use this if you want to pass objects into a web or Lit component.
 
@@ -90,7 +125,15 @@ import { stringify } from 'rend'
 
 ## Development
 
-To run the example, first install fastify:
+### Codespaces (recommended)
+
+To get everything setup out of the box, simply open this repo in a codespace and run: `make run`.
+
+### Local
+
+Clone this repo.
+
+Install fastify cli:
 
 ```sh
 npm i -g fastify-cli
