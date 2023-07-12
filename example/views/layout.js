@@ -16,6 +16,28 @@ export function header(d) {
   
     <link rel="stylesheet" href="/css/styles.css" />
 
+    <script type="importmap">
+    {
+        "imports": {
+            "lit": "https://cdn.jsdelivr.net/npm/lit@2/index.js",
+            "lit/": "https://cdn.jsdelivr.net/npm/lit@2/",
+            "@material/web/": "https://cdn.jsdelivr.net/npm/@material/web@1.0.0-pre.13/",
+            "@lit/localize": "https://cdn.jsdelivr.net/npm/@lit/localize/lit-localize.js"
+        },
+        "scopes": {
+            "https://cdn.jsdelivr.net/": {
+                "@lit/reactive-element": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@1/reactive-element.js",
+                "@lit/reactive-element/": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@1/",
+                "lit-element/lit-element.js": "https://cdn.jsdelivr.net/npm/lit-element@3/lit-element.js",
+                "lit-html": "https://cdn.jsdelivr.net/npm/lit-html@2/lit-html.js",
+                "lit-html/": "https://cdn.jsdelivr.net/npm/lit-html@2/",
+                "tslib": "https://cdn.jsdelivr.net/npm/tslib@2/tslib.es6.mjs"
+            }
+        }
+    }
+    </script>
+
+
 </head>
 
 <body>
@@ -29,7 +51,7 @@ export function footer(d) {
     return `
     <div class="footer">
         <div class="container">
-            Footer
+            <a href="https://github.com/treeder/rend">Rend</a>
         </div>
     </div>
     </body>

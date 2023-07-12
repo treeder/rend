@@ -13,6 +13,16 @@ export function render(d) {
     <p>
         This is localized: ${d.greeting}
     </p>
+
+    <div>
+        This is a web component, loaded on the client side:
+    </div>
+    <div>
+        <script type="module">
+            import '/components/hello-world.js'
+        </script>
+        <hello-world name=${d.name}></hello-world>
+    </div>
     
     </div>
 

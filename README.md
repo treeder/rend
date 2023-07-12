@@ -14,6 +14,8 @@ things for super fast first contentful paint then you hydrate the dynamic areas 
 
 We use rend for server side and Lit web components for client side.
 
+[DEMO](https://rend-giosppuxqq-uc.a.run.app/)
+
 ## Install
 
 ```sh
@@ -22,7 +24,7 @@ npm install treeder/rend
 
 ## Usage
 
-First make a `layout.js` file with two functions, `header()` and `footer()`:
+First make a `views/layout.js` file with two functions, `header()` and `footer()`:
 
 ```js
 export function header(d) {
@@ -43,7 +45,7 @@ export function footer(d) {
 }
 ```
 
-Then make an `index.js` file with your body content:
+Then make a new JavaScript file for each view, we'll start with `views/index.js`:
 
 ```js
 export function render(d) {
@@ -53,16 +55,14 @@ export function render(d) {
 }
 ```
 
-Now we send that back in a request.
+Now we can use rend to render our responses.
 
-This is a fastify example, but you can do the same with Express or whatever you like to use. Put the following in `app.js`.
+This is a fastify example, but you can do the same with Express or whatever you like to use. 
+Copy the following into a file called `app.js`.
 
 ```js
-import Fastify from 'fastify'
 import { Rend } from 'rend'
 import { header, footer } from './views/layout.js'
-
-const fastify = Fastify()
 
 // Initialize Rend with header and footer render functions:
 let rend = new Rend({ header, footer })
@@ -72,25 +72,60 @@ fastify.get('/', async (request, reply) => {
   return rend.send(reply, './views/index.js', {name: 'John Wick'})
 })
 
-// Start the server
-const start = async () => {
-  try {
-    await fastify.listen({ port: 3000 })
-  } catch (err) {
-    fastify.log.error(err)
-    process.exit(1)
-  }
-}
-start()
+// This isn't a full example, see [example/app.js](example/app.js) for working example. 
 ```
 
 Start it up with `node app.js` and surf to https://localhost:3000. That's it!
 
 ## Server Side Rendering - SSR
 
-The example above is all server side code. If you run it and view it, you'll see it renders insanely fast. 
+The example above is all server side code. If you run it and view it, you'll see it render insanely fast. 
 
-## Web Components
+## Web Components - aka: The Client Side
+
+Web components are standard technology now, built into every major browser. This eliminates the need
+to use things like React that were created before web components were a thing. Because it's part of the browser 
+you'll get better performance and no need for slow build pipelines!
+
+### Quick example
+
+Copy the following into a file called `hello-world.js`, make sure it's in a publicly accessible folder. 
+
+```js
+import {html, css, LitElement} from 'lit'
+
+export class HelloWorld extends LitElement {
+  static styles = css`p { color: blue }`
+
+  static properties = {
+    name: {type: String},
+  }
+
+  constructor() {
+    super()
+    this.name = 'Somebody'
+  }
+
+  render() {
+    return html`<p>Hello, ${this.name}!</p>`
+  }
+}
+customElements.define('hello-world', HelloWorld)
+```
+
+Then in your `render()` function for your view, just need to import and use it:
+
+```js
+<script type="module">
+    import '/components/hello-world.js'
+</script>
+<hello-world name="${d.name}"></hello-world>
+```
+
+It's that simple! See the [example](example/) app for full example.
+
+### 
+I recommend using [Lit](https://lit.dev/), a popular web component library, that makes building web components easy.
 
 TODO:
 
@@ -149,15 +184,15 @@ Use the following:
 export class HTTPError extends Error {
     constructor(message, options) {
       super(message, options)
-      this.status = options.status
+      this.code = options.code
     }
 
-    get code() {
-        return this.status
+    get status() {
+        return this.code
     }
 
     toString() {
-        return `${this.status} ${this.message}`;
+        return `${this.code} ${this.message}`;
     }
 }
 ```
