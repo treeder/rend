@@ -3,6 +3,8 @@
 A JavaScript based renderer using template literals. The beauty of this is that it's so simple and you just use standard JavaScript interpolation
 and do any kind of JavaScript tricks you want.
 
+[Live Demo](https://rend-giosppuxqq-uc.a.run.app/)
+
 * No builds
 * No lock-in
 * No proprietary syntax like with other template engines
@@ -15,7 +17,6 @@ things for super fast first contentful paint then you hydrate the dynamic areas 
 
 We use rend for server side and Lit web components for client side.
 
-[DEMO](https://rend-giosppuxqq-uc.a.run.app/)
 
 ## Install
 
@@ -153,18 +154,7 @@ Then in your `render()` function for your view, just need to import and use it:
 <hello-world name="${d.name}"></hello-world>
 ```
 
-It's that simple! See the [example](example/) app for full example.
-
-### 
-I recommend using [Lit](https://lit.dev/), a popular web component library, that makes building web components easy.
-
-TODO:
-
-* Lit
-* Use a component library
-* Add a custom component
-* Import maps are your best friend for performance and zero builds
-
+It's that simple! See the [example](example/) app for working example.
 
 ## Localization
 
@@ -173,8 +163,6 @@ nice convenience features. The [example](/example) app uses it to show how easy 
 
 The very nice thing is that it is Lit compatible you can use @lit/localize and loco with the same language
 files. 
-
-TODO: use the same lang file in a web component and on the server.
 
 ## Other helpful functions
 
@@ -193,7 +181,7 @@ Here's some things we find useful that make building your apps more consistent.
 
 ### Errors
 
-Use the standard `cause` to wrap errors: 
+Use the `cause` to wrap errors: 
 
 ```js
 try {
@@ -206,8 +194,6 @@ try {
 Then you can check the cause with `err.cause`.
 
 ### API / HTTP Errors
-
-TODO: add this to a lib or rend.
 
 Use the following:
 
