@@ -1,10 +1,11 @@
 # rend
 
-A Node.js renderer using template literals. The beauty of this is that it's so simple and you can just use standard JavaScript interpolation
+A JavaScript based renderer using template literals. The beauty of this is that it's so simple and you just use standard JavaScript interpolation
 and do any kind of JavaScript tricks you want.
 
 * No builds
 * No lock-in
+* No proprietary syntax like with other template engines
 * Super simple
 * Server side rendering
 * Client side rendering with standard web components (built into the browser)
@@ -39,8 +40,8 @@ export function header(d) {
 
 export function footer(d) {
   return `
-    </body>
-    </html>
+</body>
+</html>
     `
 }
 ```
@@ -71,21 +72,51 @@ fastify.get('/', async (request, reply) => {
   // The following will write the response using the template at index.js and the data object with a name key:
   return rend.send(reply, './views/index.js', {name: 'John Wick'})
 })
-
-// This isn't a full example, see [example/app.js](example/app.js) for working example. 
 ```
+
+To see the full example of this, see [example/app.js](example/app.js).
 
 Start it up with `node app.js` and surf to https://localhost:3000. That's it!
 
 ## Server Side Rendering - SSR
 
-The example above is all server side code. If you run it and view it, you'll see it render insanely fast. 
+The example above is all server side code. If you run it and view it, you'll see it render insanely fast.
 
-## Web Components - aka: The Client Side
+Because this is all JavaScript based you can do everything as you normally would in JavaScript. Here's some examples:
 
-Web components are standard technology now, built into every major browser. This eliminates the need
+#### Loops
+
+Here's how to loop and output:
+
+```js
+export function render(d) {
+  return `
+    <h2>Hello ${d.name}!</h2>
+    These are your tasks for today:
+    <ul>
+      ${d.tasks.map(t) => `<li>${t.name}</li>`}
+    </ul>
+  `
+}
+```
+
+#### Conditionals
+
+```js
+export function render(d) {
+  return `
+    <h2>Hello ${d.name ? d.name : 'World'}!</h2>
+  `
+}
+```
+
+## Client Side - Web Components
+
+Web components are standard technology that is now supported in every major browser. This eliminates the need
 to use things like React that were created before web components were a thing. Because it's part of the browser 
 you'll get better performance and no need for slow build pipelines!
+
+And most of the JavaScript stuff you can do on the server side above, you can do inside your components. 
 
 ### Quick example
 
