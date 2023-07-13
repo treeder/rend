@@ -1,13 +1,12 @@
 # rend - the anti-framework framework
 
-
+<pre>
                    _________
 _________________________  /
 __  ___/  _ \_  __ \  __  / 
 _  /   /  __/  / / / /_/ /  
 /_/    \___//_/ /_/\__,_/   
-                            
-
+</pre>
 
 A light-weight JavaScript renderer using template literals.  The beauty of this is that it's all just standard JavaScript using interpolation
 and enables you to do any kind of JavaScript tricks you want without using some proprietary syntax. Your server side code and syntax is nearly 
