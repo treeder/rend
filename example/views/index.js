@@ -2,7 +2,7 @@ export function render(d) {
     return `
     <div class="container">
 
-    <h1>Rend - the no framework framework</h1>
+    <h1>Rend - the anti-framework framework</h1>
 
     <p>
         Literally use literals for your templates
