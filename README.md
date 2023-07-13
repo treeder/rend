@@ -32,7 +32,7 @@ things for super fast first contentful paint then you hydrate the dynamic areas 
 
 This repo is Codespaces ready, just click the button below, then at the terminal run `make run`
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/treeder/rend)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/treeder/rend?quickstart=1)
 
 ## Getting Started
 
@@ -180,6 +180,8 @@ nice convenience features. The [example](/example) app uses it to show how easy 
 
 The very nice thing is that it is Lit compatible you can use @lit/localize and loco with the same language
 files. 
+
+This is being used in the [example app](/example) and [demo](https://rend-giosppuxqq-uc.a.run.app/). 
 
 ## Other helpful functions
 
