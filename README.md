@@ -20,9 +20,15 @@ Use rend for server side and Lit web components for client side, a perfect match
 The philosophy behind this is based on islands architecture or components architecture where you server side render all the static
 things for super fast first contentful paint then you hydrate the dynamic areas with JavaScript to make them usable. 
 
+## Quickstart
 
+This repo is Codespaces ready, just click the button below, then at the terminal run `make run`
 
-## Install
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/treeder/rend)
+
+## Getting Started
+
+Just install rend:
 
 ```sh
 npm install treeder/rend
@@ -61,10 +67,9 @@ export function render(d) {
 }
 ```
 
-Now we can use rend to render our responses.
+Now you can use rend to render your responses.
 
 This is a fastify example, but you can do the same with Express or whatever you like to use. 
-Copy the following into a file called `app.js`.
 
 ```js
 import { Rend } from 'rend'
@@ -74,7 +79,7 @@ import { header, footer } from './views/layout.js'
 let rend = new Rend({ header, footer })
 
 fastify.get('/', async (request, reply) => {
-  // The following will write the response using the template at index.js and the data object with a name key:
+  // The following will write the response using the template at index.js and a data object you can use in your template:
   return rend.send(reply, './views/index.js', {name: 'John Wick'})
 })
 ```
