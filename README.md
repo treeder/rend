@@ -1,9 +1,14 @@
 # rend
 
-A JavaScript based renderer using template literals. The beauty of this is that it's so simple and you just use standard JavaScript interpolation
-and do any kind of JavaScript tricks you want.
+A light-weight JavaScript renderer using template literals. The beauty of this is that it's all just standard JavaScript using interpolation
+and enables you to do any kind of JavaScript tricks you want without using some proprietary syntax. Your server side code and syntax is nearly 
+the same as the client side.
+
+Use rend for server side and Lit web components for client side, a perfect match. 
 
 [Live Demo](https://rend-giosppuxqq-uc.a.run.app/)
+
+## Benefits
 
 * No builds
 * No lock-in
@@ -15,7 +20,6 @@ and do any kind of JavaScript tricks you want.
 The philosophy behind this is based on islands architecture or components architecture where you server side render all the static
 things for super fast first contentful paint then you hydrate the dynamic areas with JavaScript to make them usable. 
 
-We use rend for server side and Lit web components for client side.
 
 
 ## Install
