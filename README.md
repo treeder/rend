@@ -18,10 +18,9 @@ Use rend for server side and Lit web components for client side, a perfect match
 
 ## Benefits
 
-* No builds
+* No builds - ie: zero build time!
 * No lock-in
 * No proprietary syntax like with other template engines
-* Super simple
 * Server side rendering
 * Client side rendering with standard web components (built into the browser)
 
