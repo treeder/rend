@@ -93,7 +93,7 @@ fastify.get('/', async (request, reply) => {
 
 To see the full example of this, see [example/app.js](example/app.js).
 
-Start it up with `node app.js` and surf to https://localhost:3000. That's it!
+Start it up with `node server.js` and surf to https://localhost:3000. That's it!
 
 ## Server Side Rendering - SSR
 
