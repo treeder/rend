@@ -16,6 +16,8 @@ Use rend for server side and Lit web components for client side, a perfect match
 
 [Live Demo](https://rend-giosppuxqq-uc.a.run.app/)
 
+I love constructive feedback, so please post any questions, feedback or ideas [here](https://github.com/treeder/rend/discussions).
+
 ## Benefits
 
 * No builds - ie: zero build time!
