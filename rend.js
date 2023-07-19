@@ -1,5 +1,9 @@
 import path from 'path'
 export class Rend {
+
+    // options:
+    //   - header, footer: template functions that will wrap around the content
+    //   - prod (boolean): enable for performance enhancements such as cached templates
     constructor(options={}) {
         this.options = options
 
@@ -20,7 +24,7 @@ export class Rend {
             let template =this.templates[bodyFunc] 
             if (!template) {
                 template = await import(path.join(process.cwd(), bodyFunc))
-                if(this.options.prod){
+                if(o.prod){
                     this.templates[bodyFunc] = template
                 }
             } else {
