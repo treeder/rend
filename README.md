@@ -85,7 +85,7 @@ import { Rend } from 'rend'
 import { header, footer } from './views/layout.js'
 
 // Initialize Rend with header and footer render functions:
-let rend = new Rend({ header, footer })
+let rend = new Rend({ header, footer }) // other options found in code such as prod: true for extra performance
 
 fastify.get('/', async (request, reply) => {
   // The following will write the response using the template at index.js and a data object you can use in your template:
