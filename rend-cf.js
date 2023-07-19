@@ -1,4 +1,5 @@
 import path from 'node:path'
+import * as process from 'node:process';
 
 export class Rend {
 
