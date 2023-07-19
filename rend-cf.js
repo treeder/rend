@@ -25,7 +25,7 @@ export class Rend {
         } else {
             let template =this.templates[bodyFunc] 
             if (!template) {
-                template = await import(path.join(process.cwd(), bodyFunc))
+                template = await import(bodyFunc))
                 if(o.prod){
                     this.templates[bodyFunc] = template
                 }
