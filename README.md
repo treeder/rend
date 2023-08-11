@@ -1,4 +1,4 @@
-# rend - the anti-framework framework
+# rend - the pure JavaScript server-side renderer 
 
 <pre>
                    _________
@@ -18,13 +18,15 @@ Use rend for server side and Lit web components for client side, a perfect match
 
 I love constructive feedback, so please post any questions, feedback or ideas [here](https://github.com/treeder/rend/discussions).
 
+[Subscribe here](https://thingster.app/orgs/treeder/spaces/rend) to get latest updates, tips and tricks.  
+
 ## Benefits
 
-* No builds - ie: zero build time!
+* No build - ie: zero build time!
 * No lock-in
 * No proprietary syntax like with other template engines
 * Server side rendering
-* Client side rendering with standard web components (built into the browser)
+* Client side rendering - use web components! They are built into the browser and are awesome.
 
 The philosophy behind this is based on islands architecture or components architecture where you server side render all the static
 things for super fast first contentful paint then you hydrate the dynamic areas with JavaScript to make them usable. 
