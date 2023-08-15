@@ -13,6 +13,7 @@ export class Rend {
 
     // render returns a string of the rendered content
     async render(bodyFunc, d) {
+        if (!d) d = {}
         if (this.options.data) {
             d = { ...this.options.data, ...d }
         }
