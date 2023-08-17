@@ -1,7 +1,7 @@
 // import path from 'node:path'
 // import * as process from 'node:process';
 
-export class Rend {
+export class RendCF {
 
     // options:
     //   - header, footer: template functions that will wrap around the content
