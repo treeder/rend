@@ -131,6 +131,59 @@ export function render(d) {
 }
 ```
 
+## Server Side Components
+
+Server-side components are reusable classes that render on the server. These are generally static, but can contain client-side components
+to make them interactive. 
+
+The basic structure is to make a class with a render method. If you want to get the data object into it, create a `constructor` function like
+the example below. 
+
+Here is an example of a server-side component:
+
+```js
+import { html } from 'rend'
+
+export class MyReusableComponent {
+    constructor(d) {
+        this.d = d
+    }
+
+    render(d) {
+        return html`
+        <div style="border: 1px solid blue; border-radius: 8px; padding: 10px;">
+            <div class="mb-3">
+                I am a reusable server-side component. <span class="blue">Hello ${this.d.name}.</span>
+            </div>
+            <div class="">
+                <!-- This is a client-side web component: -->
+                <script type="module">
+                    import '/components/hello-world.js'
+                </script>
+                <hello-world name="${this.d.name}" car="${this.d.car}"></hello-world>
+            </div>
+        </div>
+        `
+    }
+}
+```
+
+Then you can use it inside your pages `render` function:
+
+```js
+import { html } from 'rend'
+import { MyReusableComponent } from './components/my-reusable-component.js'
+
+export function render(d) {
+    return html`
+        <h3>Server-side components</h3>
+        <div class="mt-3">
+            ${new MyReusableComponent(d)}
+        </div>
+    `
+}
+```
+
 ## Client Side - Web Components
 
 Web components are standard technology that is now supported in every major browser. This eliminates the need

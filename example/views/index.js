@@ -1,30 +1,42 @@
+import { html } from '../../rend.js'
+import { MyReusableComponent } from './components/my-reusable-component.js'
+
 export function render(d) {
-    return `
+    return html`
     <div class="container">
 
-    <h1>Rend - the anti-framework framework</h1>
+        <h1>Rend - the modern JavaScript server-side rendering framework</h1>
 
-    <p>
-        Literally use literals for your templates
-    </p>
+        <p>
+            Literally use literals for your templates.
+        </p>
+        <p>
+            I am ${d.name}
+        </p>
 
-    I am ${d.name}
+        <h2>Reusable components</h2>
 
-    <p>
-        This is localized: ${d.greeting}
-    </p>
+        <h3>Server-side components</h3>
+        <div class="mt-3">
+            ${new MyReusableComponent(d)}
+        </div>
 
-    <div>
-        This is a web component, loaded on the client side:
+        <h3>Client-side components</h3>
+        <div class="mt-3">
+            This is a client-side web component:
+        </div>
+        <div class="mt-3">
+            <script type="module">
+                import '/components/hello-world.js'
+            </script>
+            <hello-world name="${d.name}"></hello-world>
+        </div>
+
+        <h2>Localization</h2>
+        <p>
+            This is using the loco library to localize to spanish: ${d.greeting}
+        </p>
+
     </div>
-    <div>
-        <script type="module">
-            import '/components/hello-world.js'
-        </script>
-        <hello-world name="${d.name}"></hello-world>
-    </div>
-    
-    </div>
-
 `
 }
