@@ -49,4 +49,10 @@ export default async function plugin(fastify, options) {
     fastify.get('/about', async (request, reply) => {
         return rend.send(reply, './views/about.js', {})
     })
+
+
+    fastify.get('/test', async (request, reply) => {
+        return rend.send(reply, './views/test.js', {})
+    })
+
 }
