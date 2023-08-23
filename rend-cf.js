@@ -1,6 +1,9 @@
 // import path from 'node:path'
 // import * as process from 'node:process';
 
+import { html } from './src/html.js'
+import { stringify } from './src/stringify.js'
+
 export class RendCF {
 
     // options:
@@ -63,3 +66,5 @@ export class RendCF {
     }
 
 }
+
+export { html, stringify }
