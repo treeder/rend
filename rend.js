@@ -22,7 +22,7 @@ export class Rend {
         }
         let o = this.options
         let b
-        if (typeof v === 'function') {
+        if (typeof bodyFunc === 'function') {
             b = bodyFunc(d)
         } else {
             b = await this.renderTemplate(bodyFunc, d)
