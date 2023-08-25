@@ -27,6 +27,11 @@ export class Rend {
         } else {
             b = await this.renderTemplate(bodyFunc, d)
         }
+        // just in case it's a promise:
+        if (b.constructor === Promise) {
+            b = await b
+        }
+        
         let s = `
             ${o.header(d)}
             ${b}
