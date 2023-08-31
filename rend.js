@@ -32,11 +32,10 @@ export class Rend {
             b = await b
         }
         
-        let s = `
-            ${o.header(d)}
-            ${b}
-            ${o.footer(d)} 
-            `
+        let s = `${o.header(d)}
+${b}
+${o.footer(d)}
+`
         return s
     }
 
