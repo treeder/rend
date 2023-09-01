@@ -1,3 +1,7 @@
+// import { slot } from '../../rend.js'
+// ${slot('main', d)}
+
+
 export function header(d) {
     return `
 <!doctype html>
@@ -43,8 +47,11 @@ export function header(d) {
 
 <body>
 <div class="nav">
-
+    <div><span style="font-weight: 700; font-size: 18px;">Rend</span></div>
 </div>
+
+<!-- This is where we can put a sublayout, for example a side nav and main content area -->
+
     `
 }
 

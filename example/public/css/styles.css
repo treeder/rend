@@ -14,3 +14,14 @@
     margin-top: 30px;
     padding-top: 20px;
 }
+
+.nav {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    max-width: 1200px;
+}
+
+.nav-item {}

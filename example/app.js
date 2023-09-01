@@ -7,10 +7,21 @@ import { addLocale, msg } from 'loco'
 import { header, footer } from './views/layout.js'
 
 import { sharedStyles } from './public/components/styles.js'
-let rend = new Rend({ header, footer, css: sharedStyles })
+let rend = new Rend({
+    header, footer, css: sharedStyles,
+    layouts: {
+        sub: { // name of the layout
+            slots: {
+                main: './views/layout-sub.js', // path to the sublayout
+            }
+        }
+    }
+})
+
+// rub = rend.sub('./views/layout-sub.js', 'main')
+
 // For Localization (remove if you don't want it, but it's no extra effort to keep it and it might come in handy when you need it)
 await addLocale('es', './public/locales/es.js')
-
 
 export default async function plugin(fastify, options) {
 
@@ -43,6 +54,10 @@ export default async function plugin(fastify, options) {
                 locale: 'es', // Snag the user's locale from a cookie, or 'Accept-Language' or something instead of hardcoding here.
             })
         })
+    })
+
+    fastify.get('/islands', async (request, reply) => {
+        return rend.send(reply, './views/islands.js', {}, { layout: 'sub', slot: 'right' })
     })
 
     // about page

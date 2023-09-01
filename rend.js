@@ -31,7 +31,7 @@ export class Rend {
         if (b.constructor === Promise) {
             b = await b
         }
-        
+
         let s = `${o.header(d)}
 ${b}
 ${o.footer(d)}
@@ -52,38 +52,60 @@ ${o.footer(d)}
         return template.render(d)
     }
 
+    // html returns a text/html Response object
+    async html(bodyFunc, d = {}, opts = {}) {
+        let headers = this.mergeHeaders({ 'Content-Type': 'text/html' }, opts)
+        return new Response(await this.render(bodyFunc, d), {
+            headers: headers,
+        })
+    }
+
+    mergeHeaders(headers, opts) {
+        if (opts.headers) {
+            return { ...headers, ...opts.headers }
+        }
+        return headers
+    }
+
+    //  TODO: should probably remove this fastify specific stuff, can put it in a separate module
+
     // send 
     // reply is a fastify reply object
     // bodyFunc can be a function or a string path to a module that exports a render function
     async send(reply, bodyFunc, d = {}, opts = {}) {
         reply.header('Content-Type', 'text/html')
-        this.addHeaders(reply, opts)
+        this.addHeadersFastify(reply, opts)
         return reply.send(await this.render(bodyFunc, d))
     }
 
     async sendCSS(reply, styles, opts = {}) {
         reply.header('Content-Type', 'text/css')
-        this.addHeaders(reply, opts)
+        this.addHeadersFastify(reply, opts)
         return reply.send(styles)
     }
 
     async sendCSSLit(reply, styles, opts = {}) {
         reply.header('Content-Type', 'application/javascript')
-        this.addHeaders(reply, opts)
+        this.addHeadersFastify(reply, opts)
         return reply.send(`import { css } from 'lit'
         
         export const styles = css\`${styles}\``)
     }
 
-    addHeaders(reply, opts) {
+    addHeadersFastify(reply, opts) {
         if (opts.headers) {
             for (const h in opts.headers) {
                 reply.header(h, opts.headers[h])
             }
         }
     }
+}
 
-
+export function slot(name, d) {
+    if (d.slots && name in d.slots) {
+        return d.slots[name](d)
+    }
+    return ''
 }
 
 export { html, stringify }
