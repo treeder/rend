@@ -8,5 +8,5 @@ COPY . .
 
 EXPOSE 3000
 
-WORKDIR /app/example
+WORKDIR /app
 CMD ["node", "server.js"]

@@ -1,0 +1,20 @@
+{
+  "name": "rend-fastify-example",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "To run example:",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "fastify": "^4.15.0"
+  },
+  "dependencies": {
+    "@fastify/static": "^6.10.2",
+    "loco": "github:treeder/loco"
+  }
+}

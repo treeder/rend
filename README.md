@@ -8,11 +8,11 @@ _  /   /  __/  / / / /_/ /
 /_/    \___//_/ /_/\__,_/   
 </pre>
 
-A light-weight JavaScript renderer using template literals.  The beauty of this is that it's all just standard JavaScript using interpolation
+A light-weight, no dependency, JavaScript renderer using template literals. The beauty of rend is that it's all just standard JavaScript using interpolation
 and enables you to do any kind of JavaScript tricks you want without using some proprietary syntax. Your server side code and syntax is nearly 
 the same as the client side.
 
-Use rend for server side and Lit web components for client side, a perfect match. 
+Use rend for server side and [Lit](https://lit.dev) web components for the client side. A perfect match. 
 
 [Live Demo](https://rend-giosppuxqq-uc.a.run.app/)
 

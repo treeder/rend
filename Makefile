@@ -1,7 +1,7 @@
 
 install:
 	npm install fastify-cli --global
-	npm install
+	cd example && npm install
 
 run:
 	cd example && fastify start --watch app.js
