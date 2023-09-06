@@ -3,6 +3,7 @@ import { html } from '../../../rend.js'
 export class TestComponent {
     constructor(d) {
         this.d = d
+        this.items = ['one', 'two', 'three']
     }
 
     render(d) {
@@ -15,9 +16,17 @@ export class TestComponent {
         <script type="module">
             import '/components/test-client-component.js'
         </script>
+
+        <div>
+        ${this.items.map((i) => {
+            return html`
+            <div>${i}</div>
+             `
+        })}
+        </div>
+
         <div class="mb-3">
             <h3>Test html tag function on server and client</h3>
-
             ${types.map((type) => {
             return html`
             SERVER: ${type}<br>
