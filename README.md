@@ -71,8 +71,9 @@ export function footer(d) {
 Then make a new JavaScript file for each view, we'll start with `views/index.js`:
 
 ```js
+import { html } from 'rend'
 export function render(d) {
-  return `
+  return html`
     <h2>Hello ${d.name}!</h2>
   `
 }
