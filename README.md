@@ -189,9 +189,9 @@ export function render(d) {
 
 Web components are standard technology that is now supported in every major browser. This eliminates the need
 to use things like React that were created before web components were a thing. Because it's part of the browser 
-you'll get better performance and no need for slow build pipelines!
+you'll get better performance, fast builds and no lock-in!
 
-And most of the JavaScript stuff you can do on the server side above, you can do inside your components. 
+I recommend using [Lit](https://lit.dev) to help you use web components, it's a lightweight wrapper around the web components API.
 
 ### Quick example
 
