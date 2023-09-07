@@ -274,18 +274,14 @@ Then you can check the cause with `err.cause`.
 Use the following:
 
 ```js
-export class HTTPError extends Error {
+export class ApiError extends Error {
     constructor(message, options) {
       super(message, options)
-      this.code = options.code
-    }
-
-    get status() {
-        return this.code
+      this.status = options.status
     }
 
     toString() {
-        return `${this.code} ${this.message}`;
+        return `${this.status} ${this.message}`;
     }
 }
 ```
