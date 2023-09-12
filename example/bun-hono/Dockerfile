@@ -9,4 +9,4 @@ COPY . .
 EXPOSE 3000
 
 WORKDIR /app
-CMD ["bun", "run"]
+CMD ["bun", "run", "app.js"]
