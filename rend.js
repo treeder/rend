@@ -67,8 +67,10 @@ ${o.footer ? o.footer(d) : ''}
             } else if (templatePath.startsWith('./')) {
                 templatePath = templatePath.substring(1)
             }
-            let ipath = process.cwd() + templatePath
-            // console.log("ipath", ipath)
+            let ipath = templatePath
+            if (typeof process !== 'undefined') { // Cloudflare does not have a process object
+                ipath = process.cwd() + templatePath
+            }
             template = await import(ipath)
             if (this.options.prod) {
                 this.templates[templatePath] = template
