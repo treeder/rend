@@ -3,7 +3,7 @@ FROM oven/bun
 WORKDIR /app
 
 COPY package*.json .
-RUN bun install --production
+RUN bun install
 COPY . .
 
 EXPOSE 3000
