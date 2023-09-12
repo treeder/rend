@@ -102,6 +102,28 @@ app.get('/', async (c) => {
 
 That's it! Full example available at [example/bun-hono].
 
+### Cloudflare Pages Functions
+
+Very similar to the rest, here is an example `functions/index.js` that will serve at `/` in your Cloudflare Pages app:
+
+```js
+import { Rend, html } from 'rend'
+import { header, footer } from './_layout.js'
+
+// const isProd = context.env.ENV == 'prod' // this doesn't work since context isn't here
+let rend = new Rend({ header, footer, prod: true })
+
+export function onRequest(context) {
+    return rend.html(index, {name: 'Honey'})
+}
+
+function index(d) {
+    return html`
+      ${d.name}, I'm home!
+    `
+}
+```
+
 ### Node with Fastify 
 
 This is a fastify example, but you can do the same with Express or whatever you like to use. 
@@ -114,8 +136,8 @@ import { header, footer } from './views/layout.js'
 let rend = new Rend({ header, footer }) // other options found in code such as prod: true for extra performance
 
 fastify.get('/', async (request, reply) => {
-  // The following will write the response using the template at index.js and a data object you can use in your template:
-  return rend.send(reply, './views/index.js', {name: 'John Wick'})
+    // The following will write the response using the template at index.js and a data object you can use in your template:
+    return rend.send(reply, './views/index.js', {name: 'John Wick'})
 })
 ```
 
