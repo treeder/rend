@@ -110,7 +110,6 @@ Very similar to the rest, here is an example `functions/index.js` that will serv
 import { Rend, html } from 'rend'
 import { header, footer } from './_layout.js'
 
-// const isProd = context.env.ENV == 'prod' // this doesn't work since context isn't here
 let rend = new Rend({ header, footer, prod: true })
 
 export function onRequest(context) {
