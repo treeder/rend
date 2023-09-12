@@ -274,6 +274,27 @@ import { stringify } from 'rend'
 <my-component something="${stringify(obj)}"></my-component>
 ```
 
+### head - a special version for web components
+
+A nice little function to generate a nice and optimized `<head>` section.
+
+Use this in your layout.js `header(d)` function:
+
+```js
+import {head} from 'rend/head.js'
+
+export function header(d){
+  // this can be your entire header function:
+  return html`
+  ${head({
+    title: 'My web app!',
+  })}
+  `
+}
+```
+
+See examples for more of the fields you can pass, like descrption, fonts, styles, etc.
+
 ## Good Practice Guidelines
 
 Here's some things we find useful that make building your apps more consistent. 
