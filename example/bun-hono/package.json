@@ -1,0 +1,11 @@
+{
+  "name": "bun-hono",
+  "module": "app.js",
+  "type": "module",
+  "dependencies": {
+    "hono": "^3.6.0",
+    "loco": "treeder/loco",
+    "rend": "file:../.."
+  },
+  "devDependencies": {}
+}

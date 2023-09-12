@@ -1,5 +1,4 @@
-// import path from 'node:path'
-// import * as process from 'node:process';
+// TODO: I think we can probably ditch this file and make Cloudflare work with regular rend
 
 import { html } from './src/html.js'
 import { stringify } from './src/stringify.js'

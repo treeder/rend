@@ -50,8 +50,10 @@ npm install treeder/rend
 First make a `views/layout.js` file with two functions, `header()` and `footer()`:
 
 ```js
+import { html } from 'rend'
+
 export function header(d) {
-  return `<!DOCTYPE html>
+  return html`<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <title>My Rad Site</title>
@@ -61,7 +63,7 @@ export function header(d) {
 }
 
 export function footer(d) {
-  return `
+  return html`
 </body>
 </html>
     `
@@ -72,6 +74,7 @@ Then make a new JavaScript file for each view, we'll start with `views/index.js`
 
 ```js
 import { html } from 'rend'
+
 export function render(d) {
   return html`
     <h2>Hello ${d.name}!</h2>
@@ -79,7 +82,27 @@ export function render(d) {
 }
 ```
 
-Now you can use rend to render your responses.
+Now you can use **rend** to render your responses.
+
+### Bun with Hono
+
+This is the recommended path as Bun and Hono are more modern and use standard APIs whereas Node has it's own non-standard APIs. 
+
+Example:
+
+```js
+app.get('/', async (c) => {
+    let d = {
+        name: "John Wick",
+        car: "Mustang Boss 429",
+    }
+    return rend.html('./views/index.js', d)
+})
+```
+
+That's it! Full example available at [example/bun-hono].
+
+### Node with Fastify 
 
 This is a fastify example, but you can do the same with Express or whatever you like to use. 
 
@@ -96,7 +119,7 @@ fastify.get('/', async (request, reply) => {
 })
 ```
 
-To see the full example of this, see [example/app.js](example/app.js).
+To see the full example of this, see [example/node-fastify].
 
 Start it up with `node server.js` and surf to https://localhost:3000. That's it!
 
@@ -112,7 +135,7 @@ Here's how to loop and output:
 
 ```js
 export function render(d) {
-  return `
+  return html`
     <h2>Hello ${d.name}!</h2>
     These are your tasks for today:
     <ul>
@@ -126,7 +149,7 @@ export function render(d) {
 
 ```js
 export function render(d) {
-  return `
+  return html`
     <h2>Hello ${d.name ? d.name : 'World'}!</h2>
   `
 }
