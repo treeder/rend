@@ -1,4 +1,4 @@
-import { html } from '../../rend.js'
+import { html } from 'rend'
 import { MyReusableComponent } from './components/my-reusable-component.js'
 
 export function render(d) {

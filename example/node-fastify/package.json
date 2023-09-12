@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@fastify/static": "^6.10.2",
-    "loco": "github:treeder/loco"
+    "loco": "github:treeder/loco",
+    "rend": "github:treeder/rend"
   }
 }

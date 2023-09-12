@@ -2,7 +2,7 @@ import path from 'path'
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import fastifyStatic from '@fastify/static'
-import { Rend } from '../rend.js'
+import { Rend } from 'rend'
 import { addLocale, msg } from 'loco'
 import { header, footer } from './views/layout.js'
 

@@ -1,4 +1,4 @@
-import { html } from '../../../rend.js'
+import { html } from 'rend'
 
 export class MyReusableComponent {
     constructor(d) {

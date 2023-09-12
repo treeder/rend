@@ -1,4 +1,4 @@
-import { html } from '../../rend.js'
+import { html } from 'rend'
 import { TestComponent } from './components/test-component.js'
 
 export function render(d) {
