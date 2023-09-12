@@ -1,7 +1,7 @@
 {
   "name": "rend",
   "type": "module",
-  "version": "0.0.56",
+  "version": "0.0.57",
   "description": "A node renderer using template literals.",
   "main": "rend.js",
   "scripts": {
