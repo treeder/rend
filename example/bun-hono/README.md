@@ -16,3 +16,8 @@ Running:
 ```sh
 make run
 ```
+
+
+### Contributors
+
+Change rend dependency in package.json to: `"rend": "file:../.."` to pick up local changes. 

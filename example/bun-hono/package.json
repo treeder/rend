@@ -5,7 +5,7 @@
   "dependencies": {
     "hono": "^3.6.0",
     "loco": "treeder/loco",
-    "rend": "file:../.."
+    "rend": "treeder/rend"
   },
   "devDependencies": {}
 }
