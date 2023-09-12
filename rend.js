@@ -1,4 +1,3 @@
-import path from 'path'
 import { html } from './src/html.js'
 import { stringify } from './src/stringify.js'
 
@@ -23,10 +22,23 @@ export class Rend {
         }
         let o = this.options
         let b
-        if (typeof bodyFunc === 'function') {
+        if (!bodyFunc) {
+            b = 'no render'
+        } else if (typeof bodyFunc === 'function') {
             b = bodyFunc(d)
+        } else if (typeof bodyFunc === 'string') {
+            if (bodyFunc.endsWith('.js')) {
+                // then it's a template path
+                b = await this.renderTemplate(bodyFunc, d)
+            } else {
+                // then just render regular string
+                b = bodyFunc
+            }
+        } else if (typeof bodyFunc === 'object' && 'render' in bodyFunc) {
+            // an object with render function
+            b = bodyFunc.render(d)
         } else {
-            b = await this.renderTemplate(bodyFunc, d)
+            throw new Error("bodyFunc must be a string, function, or object with a render function")
         }
         if (typeof b === 'undefined') {
             b = ''
@@ -48,7 +60,16 @@ ${o.footer ? o.footer(d) : ''}
         // console.log("renderTemplate", templatePath)
         let template = this.templates[templatePath]
         if (!template) {
-            template = await import(path.join(process.cwd(), templatePath))
+            // had to get rid of the 'path' library here so other frameworks like cloudflare can work
+            // so doing this in place of path.join
+            if (templatePath.startsWith('/')) {
+                // templatePath = templatePath.substring(1)
+            } else if (templatePath.startsWith('./')) {
+                templatePath = templatePath.substring(1)
+            }
+            let ipath = process.cwd() + templatePath
+            // console.log("ipath", ipath)
+            template = await import(ipath)
             if (this.options.prod) {
                 this.templates[templatePath] = template
             }
