@@ -2,8 +2,8 @@ FROM oven/bun
 
 WORKDIR /app
 
-COPY package*.json example/
-RUN bun install --frozen-lockfile
+COPY package*.json .
+RUN bun install --production
 COPY . .
 
 EXPOSE 3000
