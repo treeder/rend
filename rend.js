@@ -94,16 +94,23 @@ ${o.footer ? o.footer(d) : ''}
 
     async html(bodyFunc, d) {
         return new Response(await this.render(bodyFunc, d), {
-            status: d.status || 200,
+            status: d?.status || 200,
             headers: {
                 'Content-Type': 'text/html',
             },
         })
     }
 
+    nowrap(d){
+        d = d || {}
+        d.rend = d.rend ?? {}
+        d.rend.nowrap = true
+        return d
+    }
+
     async text(bodyFunc, d) {
-        return new Response(await this.render(bodyFunc, d), {
-            status: d.status || 200,
+        return new Response(await this.render(bodyFunc, this.nowrap(d)), {
+            status: d?.status || 200,
             headers: {
                 'Content-Type': 'text/plain',
             },
@@ -111,8 +118,8 @@ ${o.footer ? o.footer(d) : ''}
     }
 
     async json(bodyFunc, d) {
-        return new Response(await this.render(bodyFunc, d), {
-            status: d.status || 200,
+        return new Response(await this.render(bodyFunc, this.nowrap(d)), {
+            status: d?.status || 200,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -120,8 +127,8 @@ ${o.footer ? o.footer(d) : ''}
     }
 
     async css(bodyFunc, d) {
-        return new Response(await this.render(bodyFunc, d), {
-            status: d.status || 200,
+        return new Response(await this.render(bodyFunc, this.nowrap(d)), {
+            status: d?.status || 200,
             headers: {
                 'Content-Type': 'text/css',
             },
@@ -129,8 +136,8 @@ ${o.footer ? o.footer(d) : ''}
     }
 
     async js(bodyFunc, d) {
-        return new Response(await this.render(bodyFunc, d), {
-            status: d.status || 200,
+        return new Response(await this.render(bodyFunc, this.nowrap(d)), {
+            status: d?.status || 200,
             headers: {
                 'Content-Type': 'text/javascript',
             },
