@@ -128,6 +128,15 @@ ${o.footer ? o.footer(d) : ''}
         })
     }
 
+    async js(bodyFunc, d) {
+        return new Response(await this.render(bodyFunc, d), {
+            status: d.status || 200,
+            headers: {
+                'Content-Type': 'text/javascript',
+            },
+        })
+    }
+
     // send 
     // TODO: move these into fastify folder or repo
     // reply is a fastify reply object
