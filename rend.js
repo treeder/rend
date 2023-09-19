@@ -27,7 +27,7 @@ export class Rend {
         } else if (typeof bodyFunc === 'function') {
             b = bodyFunc(d)
         } else if (typeof bodyFunc === 'string') {
-            if (bodyFunc.endsWith('.js')) {
+            if (this.probablyIsTemplate(bodyFunc)) {
                 // then it's a template path
                 b = await this.renderTemplate(bodyFunc, d)
             } else {
@@ -49,11 +49,23 @@ export class Rend {
             }
         }
 
+        
+        if(d.rend?.nowrap) {
+            return b
+        }
+
         let s = `${o.header ? o.header(d) : ''}
 ${b}
 ${o.footer ? o.footer(d) : ''}
 `
         return s
+    }
+
+    probablyIsTemplate(s) {
+        let i = s.lastIndexOf('.')
+        if (i === -1) return false
+        if (s.length - i > 4) return false
+        return true
     }
 
     async renderTemplate(templatePath, d) {
