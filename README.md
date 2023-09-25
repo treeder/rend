@@ -101,7 +101,7 @@ app.get('/', async (c) => {
 })
 ```
 
-That's it! Full example available at [example/bun-hono].
+That's it! Full example available at [example/bun-hono](example/bun-hono).
 
 ### Cloudflare Pages Functions
 
@@ -141,7 +141,7 @@ fastify.get('/', async (request, reply) => {
 })
 ```
 
-To see the full example of this, see [example/node-fastify].
+To see the full example of this, see [example/node-fastify](example/node-fastify).
 
 Start it up with `node server.js` and surf to https://localhost:3000. That's it!
 
