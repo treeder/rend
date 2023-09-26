@@ -291,14 +291,17 @@ This is being used in the [example app](/example) and [demo](https://rend-giospp
 
 A little enhancement to JSON.stringify so that it works with HTML attributes. Use this if you want to pass objects into a web or Lit component.
 
+NOTE: you do NOT need to use this if you are using the `html` tag function in your render method, it will automatically do this for you.
+
 ```js
 import { stringify } from 'rend'
 <my-component something="${stringify(obj)}"></my-component>
 ```
 
-### head - a special version for web components
+### head - generates a nice and optimized head section
 
-A nice little function to generate a nice and optimized `<head>` section.
+A nice little function to generate a nice and optimized `<head>` section. It will help with lazy loading fonts, set all your opengraph and twitter 
+meta tags, etc. 
 
 Use this in your layout.js `header(d)` function:
 
