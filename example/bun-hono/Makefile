@@ -1,11 +1,8 @@
 SHELL := /bin/bash
 
 install:
-	# curl -fsSL https://bun.sh/install | bash
-	# npm install -g bun
+	curl -fsSL https://bun.sh/install | bash
 	# source /root/.bashrc 
-	bun add treeder/rend
-	bun add hono
 	bun install
 
 run:
