@@ -2,10 +2,11 @@
   "name": "bun-hono",
   "module": "app.js",
   "type": "module",
+  "//": "Change treeder/rend to file:../.. for local dev",
   "dependencies": {
-    "hono": "^3.6.0",
+    "rend": "file:../..",
     "loco": "treeder/loco",
-    "rend": "treeder/rend"
+    "hono": "^3.6.0"
   },
   "devDependencies": {}
 }

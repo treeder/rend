@@ -9,8 +9,22 @@
     margin: 0 auto;
 }
 
+.nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
 .footer {
     border-top: 1px solid #eaeaea;
     margin-top: 30px;
     padding-top: 20px;
+}
+
+.flex {
+    display: flex;
+}
+
+.p-3 {
+    padding: 1em;
 }
