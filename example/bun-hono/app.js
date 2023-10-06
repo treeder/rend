@@ -21,7 +21,7 @@ await addLocale('es', './public/locales/es.js')
 
 const app = new Hono()
 
-app.use('/*', serveStatic({ root: './public' })) // https://github.com/honojs/node-server#serve-static-middleware
+app.use('/*', serveStatic({ root: './public' }))
 
 app.get('/', async (c) => {
     let d = {
