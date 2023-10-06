@@ -22,13 +22,6 @@ const app = new Hono()
 
 app.use('/*', serveStatic({ root: './public' })) // https://github.com/honojs/node-server#serve-static-middleware
 
-// app.get('/styles.css', async (c) => {
-//     return css({
-//         imports: ['https://cdn.jsdelivr.net/gh/treeder/web-components@0/css/nostrap.css',
-//             '/css/styles.css',]
-//     })
-// })
-
 app.get('/', async (c) => {
     let d = {
         name: "John Wick",
