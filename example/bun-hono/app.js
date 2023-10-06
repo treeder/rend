@@ -1,8 +1,5 @@
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/bun'
-// import { cors } from 'hono/cors'
-// import { getCookie } from 'hono/cookie'
-// import { api, ApiError, apiInit } from './public/js/api.js'
 import { Rend } from 'rend'
 import { addLocale, msg } from 'loco' // For localization
 import { header, footer } from './views/layout.js'
@@ -11,7 +8,6 @@ const isProd = process.env.ENV == 'prod'
 const apiURL = process.env.API_URL?.replace(/\/$/, '') || 'http://localhost:8080'
 console.log("isProd:", isProd)
 console.log("apiURL:", apiURL)
-// apiInit({ apiURL, isProd })
 
 let rend = new Rend({
     prod: isProd,
