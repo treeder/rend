@@ -31,6 +31,6 @@ export class CurrentCar extends LitElement {
     </div>
       `
   }
-
 }
+
 customElements.define('current-car', CurrentCar)

@@ -16,7 +16,6 @@ let rend = new Rend({
     }
 })
 
-
 await addLocale('es', './public/locales/es.js')
 
 const app = new Hono()

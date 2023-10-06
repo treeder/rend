@@ -1,7 +1,7 @@
 import { html, css, LitElement } from 'lit'
 // import { styles } from '/css/lit.js' // TODO: reimplement this
 import '@material/web/button/filled-button.js'
-import state from '/state/state.js'
+import state from 'https://cdn.jsdelivr.net/gh/treeder/state@0/state.js'
 
 export class HelloWorld extends LitElement {
   static styles = [
