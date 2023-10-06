@@ -4,6 +4,6 @@ install:
 	cd example && npm install
 
 run:
-	cd example && fastify start --watch app.js
+	cd example/bun-hono && make run
 
 .PHONY: install test build docker release run

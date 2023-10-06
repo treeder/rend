@@ -27,8 +27,8 @@ export function header(d) {
     })}
 
     <script type="module">
-    import { apiInit } from '/js/api.js'
-    apiInit({ apiURL: '${d.apiURL}', isProd: ${d.isProd} })
+    // import { apiInit } from '/js/api.js'
+    // apiInit({ apiURL: '${d.apiURL}', isProd: ${d.isProd} })
     </script>
 
     ${nav(d)}
@@ -45,7 +45,11 @@ function nav(d) {
                 </div>
             </div>
             <div>
-            <!-- Right stuff -->
+                <!-- Right stuff -->
+                <script type="module">
+                import '/components/current-car.js'
+                </script>
+                <current-car></current-car>
             </div>
         </div>
     </div>
@@ -62,4 +66,15 @@ export function footer(d) {
   </body>
   </html>
       `
+}
+
+export function layout1(d) {
+    return `
+    <div class="container">
+        <div class="flex" style="gap: 12px;">
+            <div>${d.slots.drawer}</div>
+            <div>${d.slots.main}</div>
+        </div>
+    </div>
+    `
 }

@@ -1,6 +1,7 @@
 import { html, css, LitElement } from 'lit'
 // import { styles } from '/css/lit.js' // TODO: reimplement this
 import '@material/web/button/filled-button.js'
+import state from '/state/state.js'
 
 export class HelloWorld extends LitElement {
   static styles = [
@@ -36,12 +37,21 @@ export class HelloWorld extends LitElement {
           Hello ${this.name}!<br>
           I drive a ${this.car}
         </div>
-        <md-filled-button @click=${this.increment}>Click me</md-filled-button>
+        <md-filled-button @click=${this.changeCar}>Click me</md-filled-button>
     </div>
       `
   }
-  increment() {
+  changeCar() {
     this.car = HelloWorld.cars[(HelloWorld.cars.indexOf(this.car) + 1) % HelloWorld.cars.length]
+
+    this.dispatchEvent(new CustomEvent('carChanged', {
+      detail: {
+        car: this.car,
+      },
+    }))
+
+    state.set('car', this.car)
+
   }
 }
 customElements.define('hello-world', HelloWorld)

@@ -16,12 +16,29 @@ export class Rend {
     // render returns a string of the rendered content
     async render(bodyFunc, d) {
         // console.log("render", bodyFunc)
+
+        let o = this.options
+
+        let b = await this.renderBody(bodyFunc, d)
+
+        if (d.rend?.nowrap) {
+            return b
+        }
+
+        let s = `${o.header ? o.header(d) : ''}
+${b}
+${o.footer ? o.footer(d) : ''}
+`
+        return s
+    }
+
+    async renderBody(bodyFunc, d) {
         if (!d) d = {}
         if (this.options.data) {
             d = { ...this.options.data, ...d }
         }
-        let o = this.options
         let b
+        // console.log("typeof bodyFunc", typeof bodyFunc)
         if (!bodyFunc) {
             b = 'no render'
         } else if (typeof bodyFunc === 'function') {
@@ -34,9 +51,24 @@ export class Rend {
                 // then just render regular string
                 b = bodyFunc
             }
-        } else if (typeof bodyFunc === 'object' && 'render' in bodyFunc) {
-            // an object with render function
-            b = bodyFunc.render(d)
+        } else if (typeof bodyFunc === 'object') {
+            if ('render' in bodyFunc) {
+                // an object with render function
+                b = bodyFunc.render(d)
+            } else if ('layout' in bodyFunc) {
+                let slots = bodyFunc.slots
+                if (slots) {
+                    for (const slot in slots) {
+                        let slotContent = await this.renderBody(slots[slot], d)
+                        d.slots = d.slots || {}
+                        d.slots[slot] = slotContent
+                    }
+                }
+                b = await this.renderBody(bodyFunc.layout, d)
+
+            } else {
+                throw new Error("bodyFunc object must have a render function or slots")
+            }
         } else {
             throw new Error("bodyFunc must be a string, function, or object with a render function")
         }
@@ -48,17 +80,7 @@ export class Rend {
                 b = await b
             }
         }
-
-        
-        if(d.rend?.nowrap) {
-            return b
-        }
-
-        let s = `${o.header ? o.header(d) : ''}
-${b}
-${o.footer ? o.footer(d) : ''}
-`
-        return s
+        return b
     }
 
     probablyIsTemplate(s) {
@@ -113,7 +135,7 @@ ${o.footer ? o.footer(d) : ''}
         })
     }
 
-    nowrap(d){
+    nowrap(d) {
         d = d || {}
         d.rend = d.rend ?? {}
         d.rend.nowrap = true
