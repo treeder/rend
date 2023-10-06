@@ -18,6 +18,10 @@ export class Rend {
         // console.log("render", bodyFunc)
 
         let o = this.options
+        if (!d) d = {}
+        if (this.options.data) {
+            d = { ...o.data, ...d }
+        }
 
         let b = await this.renderBody(bodyFunc, d)
 
@@ -33,10 +37,6 @@ ${o.footer ? o.footer(d) : ''}
     }
 
     async renderBody(bodyFunc, d) {
-        if (!d) d = {}
-        if (this.options.data) {
-            d = { ...this.options.data, ...d }
-        }
         let b
         // console.log("typeof bodyFunc", typeof bodyFunc)
         if (!bodyFunc) {
