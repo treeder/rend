@@ -1,6 +1,6 @@
 import { html, css, LitElement } from 'lit'
 import '@material/web/button/filled-button.js'
-import state from '/state/state.js'
+import state from 'https://cdn.jsdelivr.net/gh/treeder/state@0/state.js'
 
 export class CurrentCar extends LitElement {
   static styles = [
