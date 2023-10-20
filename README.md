@@ -101,7 +101,7 @@ app.get('/', async (c) => {
 })
 ```
 
-That's it! Full example available at [example/bun-hono](example/bun-hono).
+That's it! Full example available at [examples/bun-hono](examples/bun-hono).
 
 ### Cloudflare Pages Functions
 
@@ -141,7 +141,7 @@ fastify.get('/', async (request, reply) => {
 })
 ```
 
-To see the full example of this, see [example/node-fastify](example/node-fastify).
+To see the full example of this, see [examples/node-fastify](examples/node-fastify).
 
 Start it up with `node server.js` and surf to https://localhost:3000. That's it!
 
@@ -273,7 +273,7 @@ Then in your `render()` function for your view, just need to import and use it:
 <hello-world name="${d.name}"></hello-world>
 ```
 
-It's that simple! See the [example](example/) app for working example.
+It's that simple! See the [example](examples/) apps for working examples.
 
 ## Localization
 

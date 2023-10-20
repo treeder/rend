@@ -2,7 +2,7 @@ FROM node:20
 
 WORKDIR /app
 
-COPY package*.json example/
+COPY package*.json .
 RUN npm ci
 COPY . .
 

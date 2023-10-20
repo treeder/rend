@@ -1,9 +1,9 @@
 
 install:
 	npm install fastify-cli --global
-	cd example && npm install
+	cd examples && npm install
 
 run:
-	cd example/bun-hono && make run
+	cd examples/bun-hono && make run
 
 .PHONY: install test build docker release run
