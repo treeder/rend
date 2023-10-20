@@ -318,7 +318,7 @@ export function header(d){
 }
 ```
 
-See examples for more of the fields you can pass, like descrption, fonts, styles, etc.
+See [examples](examples/) for more of the fields you can pass, like description, fonts, styles, etc.
 
 ## Good Practice Guidelines
 
