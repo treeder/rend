@@ -21,25 +21,28 @@ export class Rend {
 
         // if single param, then it's new slotted way, so just single input
         // console.log("typeof d", typeof d,d)
-        if(typeof d === 'undefined'){
-            d = bodyFunc
-        }
+        let d2 = d
 
         let o = this.options
         if (!d) d = {}
+        if (!d.__rend__) d.__rend__ = {}
         if (this.options.data) {
             d = { ...o.data, ...d }
         }
 
         if (o.layout) {
-            console.log("SLOTTED!!!")
             // new slotted style
+            d.__rend__.slotted = true
+            if (typeof d2 === 'undefined') {
+                console.log("d is undefined")
+                d = { ...d, ...bodyFunc } // the single param is the data map
+            } else {
+                d.__default__ = bodyFunc
+            }
             let b = await renderBody(o.layout, d)
             return b
         } else {
-
             let b = await renderBody(bodyFunc, d)
-
             if (d.rend?.nowrap) {
                 return b
             }

@@ -2,7 +2,7 @@ var templates = {}
 
 export async function renderBody(bodyFunc, d) {
     let b
-    // console.log("typeof bodyFunc", typeof bodyFunc, bodyFunc)
+    console.log("typeof bodyFunc", typeof bodyFunc, bodyFunc)
     if (!bodyFunc) {
         b = 'no render'
     } else if (typeof bodyFunc === 'function') {

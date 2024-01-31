@@ -12,7 +12,7 @@ console.log("apiURL:", apiURL)
 
 
 let rend = new Rend({
-    header, footer, 
+    header, footer,
     data: {
         apiURL,
     }
@@ -71,6 +71,22 @@ app.get('/islands2', async (c) => {
         main: new HomePage(),
     }
     return rend2.html(d)
+})
+
+// implementing a layout like this: https://thingster.app/things/qsXjgXN2TD6CsL5gpmVRd
+// trying a different way, more like normal components
+app.get('/defaultSlot', async (c) => {
+    let d = {
+        name: "John Wick",
+        car: "Mustang Boss 429",
+        greeting: msg('Hello, how are you?', {
+            id: 'greeting', // This is the localization ID to lookup in the es.js file
+            locale: 'es', // Snag the user's locale from a cookie, or 'Accept-Language' or something instead of hardcoding here.
+        }),
+        // slotted content:
+        rail: await import('./views/drawer.js'),
+    }
+    return rend2.html(new HomePage(), d)
 })
 
 app.notFound(async function (c) {

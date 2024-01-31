@@ -8,7 +8,10 @@ export async function layout(d) {
     <div class="container">
         <div class="flex" style="gap: 12px;">
             <div>${await slot('rail', d)}</div>
-            <div>${await slot('main', d)}</div>
+            <div>
+                ${await slot('main', d)}
+                ${await slot('', d)} <!-- default slot for unnamed content -->
+            </div>
         </div>
     </div>
 

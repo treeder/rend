@@ -217,6 +217,8 @@ let d = {
 return rend.html(d)
 ```
 
+You can find a full example of this [here](https://github.com/treeder/rend/tree/2886f788da4a2b5ab51048b0eb51b98f0316f5d9/examples/bun-hono).
+
 ## Using with various platforms
 
 
