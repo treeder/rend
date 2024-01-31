@@ -2,18 +2,27 @@ import { Hono } from 'hono'
 import { serveStatic } from 'hono/bun'
 import { Rend } from 'rend'
 import { addLocale, msg } from 'loco' // For localization
-import { header, footer, layout1 } from './views/layout.js'
+import { header, footer, layout } from './views/layout.js'
+import { HomePage } from './views/components/home-page.js'
 
 const isProd = process.env.ENV == 'prod'
 const apiURL = process.env.API_URL?.replace(/\/$/, '') || 'http://localhost:8080'
 console.log("isProd:", isProd)
 console.log("apiURL:", apiURL)
 
+
 let rend = new Rend({
-    prod: isProd,
-    header, footer, data: {
+    header, footer, 
+    data: {
         apiURL,
     }
+})
+
+let rend2 = new Rend({
+    layout: layout,
+    data: {
+        apiURL,
+    },
 })
 
 await addLocale('es', './public/locales/es.js')
@@ -45,6 +54,23 @@ app.get('/islands', async (c) => {
         })
     }
     return rend.html({ layout: layout1, slots: { drawer: './views/drawer.js', main: './views/index.js' } }, d)
+})
+
+// implementing a layout like this: https://thingster.app/things/qsXjgXN2TD6CsL5gpmVRd
+// trying a different way, more like normal components
+app.get('/islands2', async (c) => {
+    let d = {
+        name: "John Wick",
+        car: "Mustang Boss 429",
+        greeting: msg('Hello, how are you?', {
+            id: 'greeting', // This is the localization ID to lookup in the es.js file
+            locale: 'es', // Snag the user's locale from a cookie, or 'Accept-Language' or something instead of hardcoding here.
+        }),
+        // slotted content:
+        rail: await import('./views/drawer.js'),
+        main: new HomePage(),
+    }
+    return rend2.html(d)
 })
 
 app.notFound(async function (c) {

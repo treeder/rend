@@ -4,7 +4,7 @@
   "type": "module",
   "//": "Change treeder/rend to file:../.. for local dev",
   "dependencies": {
-    "rend": "treeder/rend#v0.0.83",
+    "rend": "file:../..",
     "loco": "treeder/loco#v0.0.12",
     "hono": "^3.6.0"
   },
