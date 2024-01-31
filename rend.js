@@ -34,10 +34,13 @@ export class Rend {
             // new slotted style
             d.__rend__.slotted = true
             if (typeof d2 === 'undefined') {
-                console.log("d is undefined")
+                // console.log("d is undefined")
                 d = { ...d, ...bodyFunc } // the single param is the data map
             } else {
                 d.__default__ = bodyFunc
+            }
+            if (d.rend?.nowrap) {
+                return await renderBody(async () => `${await slot('', d)}`, d)
             }
             let b = await renderBody(o.layout, d)
             return b
