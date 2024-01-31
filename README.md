@@ -85,69 +85,9 @@ export function render(d) {
 
 Now you can use **rend** to render your responses.
 
-### Bun with Hono
-
-This is the recommended path as Bun and Hono are more modern and use standard APIs whereas Node has it's own non-standard APIs. 
-
-Example:
-
-```js
-app.get('/', async (c) => {
-    let d = {
-        name: "John Wick",
-        car: "Mustang Boss 429",
-    }
-    return rend.html('./views/index.js', d)
-})
-```
-
-That's it! Full example available at [examples/bun-hono](examples/bun-hono).
-
-### Cloudflare Pages Functions
-
-Very similar to the rest, here is an example `functions/index.js` that will serve at `/` in your Cloudflare Pages app:
-
-```js
-import { Rend, html } from 'rend'
-import { header, footer } from './_layout.js'
-
-let rend = new Rend({ header, footer, prod: true })
-
-export function onRequest(context) {
-    return rend.html(index, {name: 'Honey'})
-}
-
-function index(d) {
-    return html`
-      ${d.name}, I'm home!
-    `
-}
-```
-
-### Node with Fastify 
-
-This is a fastify example, but you can do the same with Express or whatever you like to use. 
-
-```js
-import { Rend } from 'rend'
-import { header, footer } from './views/layout.js'
-
-// Initialize Rend with header and footer render functions:
-let rend = new Rend({ header, footer }) // other options found in code such as prod: true for extra performance
-
-fastify.get('/', async (request, reply) => {
-    // The following will write the response using the template at index.js and a data object you can use in your template:
-    return rend.send(reply, './views/index.js', {name: 'John Wick'})
-})
-```
-
-To see the full example of this, see [examples/node-fastify](examples/node-fastify).
-
-Start it up with `node server.js` and surf to https://localhost:3000. That's it!
-
 ## Server Side Rendering - SSR
 
-The example above is all server side code. If you run it and view it, you'll see it render insanely fast.
+The examples above are all server side code. If you run it and view it, you'll see it render insanely fast.
 
 Because this is all JavaScript based you can do everything as you normally would in JavaScript. Here's some examples:
 
@@ -229,6 +169,117 @@ export function render(d) {
     `
 }
 ```
+
+## NEW - Islands / Component Islands / Slots
+
+Whatever you want to call it, the [basic idea](https://thingster.app/things/qsXjgXN2TD6CsL5gpmVRd) is to server side render the layout of your app and static content, then drop in client side components for interactivity. So users get a lightning fast initial page load while still having all the interactivity we expect in an app.
+
+Let's say we have a layout with two slots, a navigation rail/drawer area and the main content area:
+
+```js
+export async function layout(d) {
+    return `
+    ${header(d)}
+
+    <div class="container">
+        <div class="flex" style="gap: 12px;">
+            <div>${await slot('rail', d)}</div>
+            <div>${await slot('main', d)}</div>
+        </div>
+    </div>
+
+    ${footer(d)}
+    `
+}
+```
+
+Then we can use that layout like this:
+
+```js
+// Initialize rend with your main layout:
+let rend = new Rend({
+    layout: layout,
+    data: { apiURL },
+})
+
+// In your request handler:
+let d = {
+    name: "John Wick",
+    car: "Mustang Boss 429",
+    greeting: msg('Hello, how are you?', {
+        id: 'greeting', // This is the localization ID to lookup in the es.js file
+        locale: 'es', // Snag the user's locale from a cookie, or 'Accept-Language' or something instead of hardcoding here.
+    }),
+    // slotted content:
+    rail: await import('./views/drawer.js'), // direct import, must have export a render function
+    main: new HomePage(), // or use class components
+}
+return rend.html(d)
+```
+
+## Using with various platforms
+
+
+### Bun with Hono
+
+This is the recommended path as Bun and Hono are more modern and use standard APIs whereas Node has it's own non-standard APIs. 
+
+Example:
+
+```js
+app.get('/', async (c) => {
+    let d = {
+        name: "John Wick",
+        car: "Mustang Boss 429",
+    }
+    return rend.html('./views/index.js', d)
+})
+```
+
+That's it! Full example available at [examples/bun-hono](examples/bun-hono).
+
+### Cloudflare Pages Functions
+
+Very similar to the rest, here is an example `functions/index.js` that will serve at `/` in your Cloudflare Pages app:
+
+```js
+import { Rend, html } from 'rend'
+import { header, footer } from './_layout.js'
+
+let rend = new Rend({ header, footer, prod: true })
+
+export function onRequest(context) {
+    return rend.html(index, {name: 'Honey'})
+}
+
+function index(d) {
+    return html`
+      ${d.name}, I'm home!
+    `
+}
+```
+
+### Node with Fastify 
+
+This is a fastify example, but you can do the same with Express or whatever you like to use. 
+
+```js
+import { Rend } from 'rend'
+import { header, footer } from './views/layout.js'
+
+// Initialize Rend with header and footer render functions:
+let rend = new Rend({ header, footer }) // other options found in code such as prod: true for extra performance
+
+fastify.get('/', async (request, reply) => {
+    // The following will write the response using the template at index.js and a data object you can use in your template:
+    return rend.send(reply, './views/index.js', {name: 'John Wick'})
+})
+```
+
+To see the full example of this, see [examples/node-fastify](examples/node-fastify).
+
+Start it up with `node server.js` and surf to https://localhost:3000. That's it!
+
 
 ## Client Side - Web Components
 
