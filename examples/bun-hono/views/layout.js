@@ -1,4 +1,20 @@
+import { slot } from 'rend'
 import { head } from 'rend/head.js'
+
+export async function layout(d) {
+    return `
+    ${header(d)}
+
+    <div class="container">
+        <div class="flex" style="gap: 12px;">
+            <div>${await slot('rail', d)}</div>
+            <div>${await slot('main', d)}</div>
+        </div>
+    </div>
+
+    ${footer(d)}
+    `
+}
 
 export function header(d) {
     return `${head({
@@ -78,3 +94,4 @@ export function layout1(d) {
     </div>
     `
 }
+

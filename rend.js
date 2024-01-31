@@ -1,5 +1,7 @@
 import { html } from './src/html.js'
 import { stringify } from './src/stringify.js'
+import { slot } from './src/slots.js'
+import { renderBody } from './src/render.js'
 
 export class Rend {
 
@@ -17,115 +19,40 @@ export class Rend {
     async render(bodyFunc, d) {
         // console.log("render", bodyFunc)
 
+        // if single param, then it's new slotted way, so just single input
+        // console.log("typeof d", typeof d,d)
+        if(typeof d === 'undefined'){
+            d = bodyFunc
+        }
+
         let o = this.options
         if (!d) d = {}
         if (this.options.data) {
             d = { ...o.data, ...d }
         }
 
-        let b = await this.renderBody(bodyFunc, d)
-
-        if (d.rend?.nowrap) {
+        if (o.layout) {
+            console.log("SLOTTED!!!")
+            // new slotted style
+            let b = await renderBody(o.layout, d)
             return b
-        }
+        } else {
 
-        let s = `${o.header ? o.header(d) : ''}
+            let b = await renderBody(bodyFunc, d)
+
+            if (d.rend?.nowrap) {
+                return b
+            }
+
+            let s = `${o.header ? o.header(d) : ''}
 ${b}
 ${o.footer ? o.footer(d) : ''}
 `
-        return s
-    }
-
-    async renderBody(bodyFunc, d) {
-        let b
-        // console.log("typeof bodyFunc", typeof bodyFunc)
-        if (!bodyFunc) {
-            b = 'no render'
-        } else if (typeof bodyFunc === 'function') {
-            b = bodyFunc(d)
-        } else if (typeof bodyFunc === 'string') {
-            if (this.probablyIsTemplate(bodyFunc)) {
-                // then it's a template path
-                b = await this.renderTemplate(bodyFunc, d)
-            } else {
-                // then just render regular string
-                b = bodyFunc
-            }
-        } else if (typeof bodyFunc === 'object') {
-            if ('render' in bodyFunc) {
-                // an object with render function
-                b = bodyFunc.render(d)
-            } else if ('layout' in bodyFunc) {
-                let slots = bodyFunc.slots
-                if (slots) {
-                    for (const slot in slots) {
-                        let slotContent = await this.renderBody(slots[slot], d)
-                        d.slots = d.slots || {}
-                        d.slots[slot] = slotContent
-                    }
-                }
-                b = await this.renderBody(bodyFunc.layout, d)
-
-            } else {
-                throw new Error("bodyFunc object must have a render function or slots")
-            }
-        } else {
-            throw new Error("bodyFunc must be a string, function, or object with a render function")
-        }
-        if (typeof b === 'undefined') {
-            b = ''
-        } else {
-            // just in case it's a promise:
-            if (b.constructor === Promise) {
-                b = await b
-            }
-        }
-        return b
-    }
-
-    probablyIsTemplate(s) {
-        let i = s.lastIndexOf('.')
-        if (i === -1) return false
-        if (s.length - i > 4) return false
-        return true
-    }
-
-    async renderTemplate(templatePath, d) {
-        // console.log("renderTemplate", templatePath)
-        let template = this.templates[templatePath]
-        if (!template) {
-            // had to get rid of the 'path' library here so other frameworks like cloudflare can work
-            // so doing this in place of path.join
-            if (templatePath.startsWith('/')) {
-                // templatePath = templatePath.substring(1)
-            } else if (templatePath.startsWith('./')) {
-                templatePath = templatePath.substring(1)
-            }
-            let ipath = templatePath
-            if (typeof process !== 'undefined') { // Cloudflare does not have a process object
-                ipath = process.cwd() + templatePath
-            }
-            template = await import(ipath)
-            if (this.options.prod) {
-                this.templates[templatePath] = template
-            }
-        } else {
-            // console.log("got cached template!")
-        }
-        if (!template) {
-            throw new Error(`Template not found: ${templatePath}`)
-        }
-        if (!template.render) {
-            throw new Error(`Template does not have a render function: ${templatePath}`)
-        }
-        try {
-            return template.render(d)
-        } catch (err) {
-            console.log("error rendering template", err)
-            throw err
+            return s
         }
     }
 
+    // these are used in your HTTP handlers to return a rend rendered response
     async html(bodyFunc, d) {
         return new Response(await this.render(bodyFunc, d), {
             status: d?.status || 200,
@@ -213,4 +140,4 @@ ${o.footer ? o.footer(d) : ''}
 
 }
 
-export { html, stringify }
+export { html, stringify, slot }
