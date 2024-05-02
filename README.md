@@ -48,30 +48,55 @@ npm install treeder/rend
 
 ## Usage
 
-First make a `views/layout.js` file with two functions, `header()` and `footer()`:
+### NEW - Islands / Component Islands / Slots
+
+Whatever you want to call it, the [basic idea](https://thingster.app/things/qsXjgXN2TD6CsL5gpmVRd) is to server side render the layout of your app and static content, then drop in client side components for interactivity. So users get a lightning fast initial page load while still having all the interactivity we expect in an app.
+
+First we make a `layout.js` file and we add content slots to it. This example has a navigation rail/drawer area and the main content area:
 
 ```js
-import { html } from 'rend'
+export async function layout(d) {
+    return `
+    ${header(d)}
 
-export function header(d) {
-  return html`<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <title>My Rad Site</title>
-</head>
-<body>
-    `
-}
+    <div class="container">
+        <div class="flex" style="gap: 12px;">
+            <div>${await slot('rail', d)}</div>
+            <div>${await slot('main', d)}</div>
+        </div>
+    </div>
 
-export function footer(d) {
-  return html`
-</body>
-</html>
+    ${footer(d)}
     `
 }
 ```
 
-Then make a new JavaScript file for each view, we'll start with `views/index.js`:
+Then you use that layout like this:
+
+```js
+// Initialize rend with your main layout:
+let rend = new Rend({
+    layout: layout,
+    data: { apiURL },
+})
+
+// In your request handler:
+let d = {
+    // slotted content:
+    rail: './views/drawer.js', // direct import, must have export a render function
+    main: './views/index.js', // or use class components
+    // the rest of your data
+    name: "John Wick",
+    car: "Mustang Boss 429",
+    greeting: msg('Hello, how are you?', {
+        id: 'greeting', // This is the localization ID to lookup in the es.js file
+        locale: 'es', // Snag the user's locale from a cookie, or 'Accept-Language' or something instead of hardcoding here.
+    }),
+}
+return rend.html(d)
+```
+
+Then make a JavaScript file for each view, we'll start with `views/index.js`:
 
 ```js
 import { html } from 'rend'
@@ -83,7 +108,16 @@ export function render(d) {
 }
 ```
 
-Now you can use **rend** to render your responses.
+To change the response status, simply add a status field:
+
+```js
+return rend.html({
+   main: './views/404.js', 
+   status: 404,
+})
+```
+
+You can find a full example of this [here](https://github.com/treeder/rend/tree/2886f788da4a2b5ab51048b0eb51b98f0316f5d9/examples/bun-hono).
 
 ## Server Side Rendering - SSR
 
@@ -169,55 +203,6 @@ export function render(d) {
     `
 }
 ```
-
-## NEW - Islands / Component Islands / Slots
-
-Whatever you want to call it, the [basic idea](https://thingster.app/things/qsXjgXN2TD6CsL5gpmVRd) is to server side render the layout of your app and static content, then drop in client side components for interactivity. So users get a lightning fast initial page load while still having all the interactivity we expect in an app.
-
-Let's say we have a layout with two slots, a navigation rail/drawer area and the main content area:
-
-```js
-export async function layout(d) {
-    return `
-    ${header(d)}
-
-    <div class="container">
-        <div class="flex" style="gap: 12px;">
-            <div>${await slot('rail', d)}</div>
-            <div>${await slot('main', d)}</div>
-        </div>
-    </div>
-
-    ${footer(d)}
-    `
-}
-```
-
-Then we can use that layout like this:
-
-```js
-// Initialize rend with your main layout:
-let rend = new Rend({
-    layout: layout,
-    data: { apiURL },
-})
-
-// In your request handler:
-let d = {
-    name: "John Wick",
-    car: "Mustang Boss 429",
-    greeting: msg('Hello, how are you?', {
-        id: 'greeting', // This is the localization ID to lookup in the es.js file
-        locale: 'es', // Snag the user's locale from a cookie, or 'Accept-Language' or something instead of hardcoding here.
-    }),
-    // slotted content:
-    rail: await import('./views/drawer.js'), // direct import, must have export a render function
-    main: new HomePage(), // or use class components
-}
-return rend.html(d)
-```
-
-You can find a full example of this [here](https://github.com/treeder/rend/tree/2886f788da4a2b5ab51048b0eb51b98f0316f5d9/examples/bun-hono).
 
 ## Using with various platforms
 
@@ -379,7 +364,7 @@ Here's some things we find useful that make building your apps more consistent.
 
 ### Errors
 
-Use the `cause` to wrap errors: 
+Use `cause` to wrap errors: 
 
 ```js
 try {
@@ -396,7 +381,7 @@ Then you can check the cause with `err.cause`.
 Use the following:
 
 ```js
-export class ApiError extends Error {
+export class APIError extends Error {
     constructor(message, options) {
       super(message, options)
       this.status = options.status
