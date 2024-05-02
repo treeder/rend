@@ -61,7 +61,7 @@ ${o.footer ? o.footer(d) : ''}
     // these are used in your HTTP handlers to return a rend rendered response
     async html(bodyFunc, d) {
         return new Response(await this.render(bodyFunc, d), {
-            status: o.layout ? d?.status || bodyFunc.status || 200 : d?.status || 200,
+            status: this.options.layout ? d?.status || bodyFunc.status || 200 : d?.status || 200,
             headers: {
                 'Content-Type': 'text/html',
             },
@@ -77,7 +77,7 @@ ${o.footer ? o.footer(d) : ''}
 
     async text(bodyFunc, d) {
         return new Response(await this.render(bodyFunc, this.nowrap(d)), {
-            status: o.layout ? d?.status || bodyFunc.status || 200 : d?.status || 200,
+            status: this.options.layout ? d?.status || bodyFunc.status || 200 : d?.status || 200,
             headers: {
                 'Content-Type': 'text/plain',
             },
@@ -86,7 +86,7 @@ ${o.footer ? o.footer(d) : ''}
 
     async json(bodyFunc, d) {
         return new Response(await this.render(bodyFunc, this.nowrap(d)), {
-            status: o.layout ? d?.status || bodyFunc.status || 200 : d?.status || 200,
+            status: this.options.layout ? d?.status || bodyFunc.status || 200 : d?.status || 200,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -95,7 +95,7 @@ ${o.footer ? o.footer(d) : ''}
 
     async css(bodyFunc, d) {
         return new Response(await this.render(bodyFunc, this.nowrap(d)), {
-            status: o.layout ? d?.status || bodyFunc.status || 200 : d?.status || 200,
+            status: this.options.layout ? d?.status || bodyFunc.status || 200 : d?.status || 200,
             headers: {
                 'Content-Type': 'text/css',
             },
@@ -104,7 +104,7 @@ ${o.footer ? o.footer(d) : ''}
 
     async js(bodyFunc, d) {
         return new Response(await this.render(bodyFunc, this.nowrap(d)), {
-            status: o.layout ? d?.status || bodyFunc.status || 200 : d?.status || 200,
+            status: this.options.layout ? d?.status || bodyFunc.status || 200 : d?.status || 200,
             headers: {
                 'Content-Type': 'text/javascript',
             },
