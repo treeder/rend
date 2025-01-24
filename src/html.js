@@ -1,4 +1,4 @@
-import { stringify } from './stringify.js'
+import { stringifyRend } from './stringify.js'
 
 export function html(strings, ...keys) {
     // I'm sure there's a more efficient way to do this...
@@ -36,7 +36,7 @@ function renderValue(key) {
         if ('render' in key) {
             s = key.render()
         } else {
-            s = stringify(key)
+            s = stringifyRend(key)
         }
     } else {
         s = key.toString()

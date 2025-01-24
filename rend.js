@@ -1,5 +1,5 @@
 import { html } from './src/html.js'
-import { stringify } from './src/stringify.js'
+import { stringifyRend } from './src/stringify.js'
 import { slot } from './src/slots.js'
 import { renderBody } from './src/render.js'
 
@@ -143,7 +143,10 @@ ${o.footer ? o.footer(d) : ''}
         }
     }
 
+    static stringify(o) {
+        return stringifyRend(o)
+    }
 
 }
 
-export { html, stringify, slot }
+export { html, slot }

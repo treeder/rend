@@ -332,8 +332,8 @@ A little enhancement to JSON.stringify so that it works with HTML attributes. Us
 NOTE: you do NOT need to use this if you are using the `html` tag function in your render method, it will automatically do this for you.
 
 ```js
-import { stringify } from 'rend'
-<my-component something="${stringify(obj)}"></my-component>
+import { Rend } from 'rend'
+<my-component something="${Rend.stringify(obj)}"></my-component>
 ```
 
 ### head - generates a nice and optimized head section
