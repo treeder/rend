@@ -1,5 +1,3 @@
-import { stringifyRend } from './stringy.js'
-
 export function html(strings, ...keys) {
     // I'm sure there's a more efficient way to do this...
     // let values = []
