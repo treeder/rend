@@ -21,6 +21,10 @@ I love constructive feedback, so please post any questions, feedback or ideas [h
 
 [Subscribe here](https://thingster.app/orgs/treeder/spaces/rend) to get latest updates, tips and tricks.  
 
+## Upgrading to 1.X
+
+[See here](https://github.com/treeder/rend/discussions/36)
+
 ## Benefits
 
 * No build - ie: zero build time!
