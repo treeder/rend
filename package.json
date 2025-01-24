@@ -1,7 +1,7 @@
 {
   "name": "rend",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A pure JavaScript renderer using template literals.",
   "main": "rend.js",
   "scripts": {
