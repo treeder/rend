@@ -1,7 +1,14 @@
-import { html } from './src/html.js'
 import { stringifyAttribute } from './src/stringy.js'
 import { slot } from './src/slots.js'
 import { renderBody } from './src/render.js'
+import { html } from './src/html.js'
+import { css } from './src/css.js'
+
+// Rend is a simple rendering engine for HTML, CSS, JS and text.
+// It supports layouts, headers, footers, slots and more.
+// It is designed to be simple and easy to use.
+// It is not a full-featured templating engine like EJS, Handlebars or Pug.
+// It is designed to be used in modern JavaScript environments.
 
 export class Rend {
 
@@ -145,4 +152,4 @@ ${o.footer ? o.footer(d) : ''}
 
 }
 
-export { html, slot, stringifyAttribute }
+export { html, css, slot, stringifyAttribute }
